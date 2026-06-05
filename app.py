@@ -9,7 +9,7 @@ st.components.v1.html(
     """
     <meta name="google-site-verification" content="vP-Bi-T6FOhgNroxZz7MORci8mHgt9faa2CGCfNVW60" />
     """,
-    height=0,
+    height=0,)
     
 st.title("🚀 Professional PDF to Paragraph Converter")
 st.write("Convert your PDFs into clean, paragraph-formatted text instantly.")
