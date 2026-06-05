@@ -23,6 +23,22 @@ if uploaded_file is not None:
 st.subheader("Why use this tool?")
 st.write("Our converter preserves paragraph spacing, making it perfect for copying text into Word or Google Docs without messy line breaks.")
 
-st.subheader("Privacy & Security")
-st.info("Your privacy is our priority. We do not save, store, or share your PDF files. All processing happens instantly and safely.")
+st.markdown("---")
+
+# 1. THE GUIDE (Google loves this for SEO)
+st.subheader("📖 How to Use This Converter")
+st.write("""
+1. **Upload:** Click the 'Browse files' button to select your PDF.
+2. **Convert:** Our engine automatically identifies and preserves your paragraphs.
+3. **Copy or Download:** View the text in the window above or click 'Download Text File' to save it to your computer.
+""")
+
+# 2. THE VALUE (Why your site is better)
+st.subheader("💡 Why use this tool?")
+st.write("Most converters create messy line breaks. Our tool uses smart paragraph detection to ensure your text is ready for Word or Google Docs immediately.")
+
+# 3. THE PRIVACY (Keep this at the very bottom)
+st.subheader("🔒 Privacy & Security")
+st.info("Your privacy is our priority. We do not save, store, or share your PDF files. All processing happens instantly in your session and files are deleted immediately after.")
+
 
