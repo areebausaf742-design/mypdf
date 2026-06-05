@@ -2,84 +2,91 @@ import streamlit as st
 import pdfplumber
 import io
 
-# 1. SETTINGS & STYLING
-st.set_page_config(page_title="PDF to Paragraph Pro", page_icon="📄", layout="centered")
+# 1. SETTINGS & PAGE IDENTITY
+st.set_page_config(page_title="PDF to Paragraph Pro", page_icon="🚀", layout="centered")
 
-# --- BEAUTIFUL INTERFACE CSS (FIXED) ---
+# 2. LEGENDARY INTERFACE STYLING
 st.markdown("""
     <style>
+    /* Gradient Background */
+    .stApp {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+    /* Red Professional Button */
     .stButton>button {
         width: 100%;
-        border-radius: 8px;
-        height: 3em;
+        border-radius: 12px;
+        height: 3.5em;
         background-color: #FF4B4B;
         color: white;
         font-weight: bold;
+        border: none;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        transition: 0.3s;
     }
+    .stButton>button:hover {
+        background-color: #ff3333;
+        transform: translateY(-2px);
+    }
+    /* Rounded Text Areas */
     .stTextArea>div>div>textarea {
-        border-radius: 10px;
+        border-radius: 15px;
+        border: 1px solid #ddd;
     }
     footer {visibility: hidden;}
     </style>
     """, unsafe_allow_html=True)
 
-# 2. GOOGLE VERIFICATION CODE
-# This text at the bottom helps Google verify your ownership
-verification_code = "google-site-verification: vP-Bi-T6FOhgNroxZz7MORci8mHgt9faa2CGCfNVW60"
-
 # 3. HEADER SECTION
-st.markdown("<h1 style='text-align: center; color: #FF4B4B;'>🚀 PDF to Paragraph Pro</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 18px;'>The fastest way to clean up messy PDF text for Word or Google Docs.</p>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #FF4B4B; font-size: 3em;'>🚀 PDF to Paragraph Pro</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 20px; color: #444;'>Fast. Secure. Paragraph-Perfect.</p>", unsafe_allow_html=True)
 st.markdown("---")
 
-# 4. THE CONVERTER TOOL
+# 4. THE CONVERTER ENGINE
 st.subheader("📤 Upload your PDF")
-uploaded_file = st.file_uploader("Drop your file here", type="pdf")
+uploaded_file = st.file_uploader("Drag and drop your file to fix messy formatting instantly", type="pdf")
 
 if uploaded_file is not None:
-    with st.spinner('Fixing paragraphs...'):
-        with pdfplumber.open(uploaded_file) as pdf:
-            full_text = ""
-            for page in pdf.pages:
-                text = page.extract_text(layout=True)
-                if text:
-                    # Smart Paragraph Logic
-                    paragraphs = text.replace('\n\n', '[[P]]').replace('\n', ' ').replace('[[P]]', '\n\n')
-                    full_text += paragraphs + "\n\n"
+    with st.spinner('✨ Our Ryzen-optimized engine is processing your text...'):
+        try:
+            with pdfplumber.open(uploaded_file) as pdf:
+                full_text = ""
+                for page in pdf.pages:
+                    text = page.extract_text(layout=True)
+                    if text:
+                        # Smart Paragraph Recovery Logic
+                        paragraphs = text.replace('\n\n', '[[P]]').replace('\n', ' ').replace('[[P]]', '\n\n')
+                        full_text += paragraphs + "\n\n"
 
-    st.success("Conversion Successful!")
-    st.text_area("✨ Cleaned Text Preview", full_text, height=400)
-    
-    st.download_button(
-        label="📥 Download Cleaned Text",
-        data=full_text,
-        file_name="converted_paragraphs.txt",
-        mime="text/plain"
-    )
+            st.success("✅ Conversion Successful!")
+            st.text_area("✨ Cleaned Paragraphs Preview", full_text, height=400)
+            
+            st.download_button(
+                label="📥 DOWNLOAD CLEAN TEXT FILE",
+                data=full_text,
+                file_name="converted_paragraphs.txt",
+                mime="text/plain"
+            )
+        except Exception as e:
+            st.error("Oops! Something went wrong. Please try a different PDF file.")
 
-# 5. SEO & GOOGLE CONTENT
+# 5. HIGH-VALUE GOOGLE CONTENT (SEO)
 st.markdown("---")
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("### 📖 How to Use")
-    st.write("""
-    1. Upload your PDF file.
-    2. Wait for the Ryzen-speed engine.
-    3. Copy the clean text above.
-    """)
+    st.markdown("### 📖 How it Works")
+    st.write("Our system uses advanced OCR-style logic to detect where paragraphs end. No more copying text and spending hours fixing line breaks!")
 
 with col2:
-    st.markdown("### 💡 Why us?")
-    st.write("""
-    - **No messy lines**
-    - **100% Private**
-    - **Super Fast**
-    """)
+    st.markdown("### 💎 Premium Features")
+    st.write("- **Zero Formatting Loss**\n- **Ryzen 7 Speed**\n- **100% Free Forever**")
 
+# 6. MANDATORY FOR ADSENSE (Privacy & Contact)
 st.markdown("---")
-st.markdown("### 🔒 Privacy & Security")
-st.info("We do not store your data. All processing is done instantly and securely in your session.")
+st.subheader("🔒 Data Privacy & Contact")
+st.info("Files are processed in-memory and never stored on our servers. Your data is 100% private.")
+st.write("For support or inquiries: **contact@yourdomain.com**")
 
-# 6. VERIFICATION TAG (Bottom of the page)
-st.caption(verification_code)
+# 7. GOOGLE VERIFICATION (Bottom Caption)
+st.caption("google-site-verification: vP-Bi-T6FOhgNroxZz7MORci8mHgt9faa2CGCfNVW60")
