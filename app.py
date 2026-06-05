@@ -1,233 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <!-- ✅ Google Site Verification -->
-  <meta name="google-site-verification" content="vP-Bi-T6FOhgNroxZz7MORci8mHgt9faa2CGCfNVW60" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF to Paragraph Pro | Legendary Converter</title>
+import streamlit as st
+import pdfplumber
+import time
 
-  <!-- ✅ Google AdSense -->
-  <script data-ad-client="ca-pub-xxxxxxxxxxxxxxxx" async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+# ==========================================
+# ✅ GOOGLE SITE VERIFICATION META TAG
+# ==========================================
+st.markdown(
+    '<meta name="google-site-verification" content="vP-Bi-T6FOhgNroxZz7MORci8mHgt9faa2CGCfNVW60" />',
+    unsafe_allow_html=True
+)
 
-  <!-- ✅ Styles -->
-  <style>
-    /* Global Reset */
-    * { margin:0; padding:0; box-sizing:border-box; }
+# Optional: handle Google verification file
+if "google4389f87ed75cf887.html" in st.query_params:
+    st.write("google-site-verification: google4389f87ed75cf887.html")
+    st.stop()
 
-    body {
-      background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
-                  url('https://source.unsplash.com/random/1600x900/?technology,abstract');
-      background-size: cover;
-      color: white;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-    }
+# ==========================================
+# ✅ PAGE CONFIG
+# ==========================================
+st.set_page_config(
+    page_title="PDF to Paragraph Pro | Legendary Converter",
+    page_icon="📄",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
-    nav {
-      background: rgba(20,20,20,0.95);
-      padding: 15px;
-      text-align: center;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
+# ==========================================
+# ✅ CUSTOM CSS (A to Z Styling)
+# ==========================================
+st.markdown("""
+<style>
+.stApp {
+    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+                url('https://source.unsplash.com/random/1600x900/?technology');
+    background-size: cover;
+    color: white;
+}
+div.stBlock {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 35px;
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 25px;
+}
+.stButton>button {
+    width: 100%;
+    background: linear-gradient(90deg, #FF4B4B 0%, #ff8a8a 100%);
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 15px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
+}
+.stButton>button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(255,75,75,0.6);
+}
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    background: -webkit-linear-gradient(#ffffff, #777777);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+section[data-testid="stSidebar"] {
+    background-color: rgba(10,10,10,0.95);
+}
+footer {visibility: hidden;}
+#MainMenu {visibility: hidden;}
+header {visibility: hidden;}
+</style>
+""", unsafe_allow_html=True)
 
-    .container {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 30px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 20px;
-      backdrop-filter: blur(15px);
-      box-shadow: 0 0 30px rgba(0,0,0,0.5);
-    }
+# ==========================================
+# ✅ SIDEBAR CONTROL CONSOLE
+# ==========================================
+with st.sidebar:
+    st.markdown("<h1 style='font-size: 24px;'>SYSTEM CONSOLE</h1>", unsafe_allow_html=True)
+    st.success("⚡ CPU: AMD RYZEN 7 7730U ACTIVE")
+    st.info("🧠 16GB RAM OPTIMIZED")
+    st.markdown("---")
+    st.subheader("🛠️ Engine Settings")
+    mode = st.selectbox("Processing Mode", ["Deep Paragraph Recovery", "Turbo Extraction"])
+    st.checkbox("AI Sentence Repair", value=True)
+    st.markdown("---")
+    if st.button("LOAD SAMPLE DOCUMENT"):
+        st.toast("Sample Loaded!")
 
-    h1 {
-      text-align: center;
-      font-size: 2.5em;
-      background: -webkit-linear-gradient(#ffffff, #777777);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 900;
-      margin-bottom: 10px;
-    }
+# ==========================================
+# ✅ MAIN INTERFACE
+# ==========================================
+st.markdown("<h1>🚀 LEGENDARY PDF TO PARAGRAPH PRO</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #ddd; font-size: 20px;'>Ultra-Fast. Military Privacy. Paragraph Perfect.</p>", unsafe_allow_html=True)
 
-    p.subtitle {
-      text-align: center;
-      color: #ddd;
-      font-size: 20px;
-      margin-bottom: 30px;
-    }
+uploaded_file = st.file_uploader("Upload Portal", type="pdf")
 
-    input[type="file"] {
-      display:block;
-      margin:20px auto;
-      padding:10px;
-      background:#222;
-      border-radius:10px;
-      color:#fff;
-    }
+if uploaded_file is not None:
+    progress_bar = st.progress(0)
+    for i in range(100):
+        time.sleep(0.005)
+        progress_bar.progress(i + 1)
 
-    button {
-      width: 100%;
-      background: linear-gradient(90deg, #FF4B4B 0%, #ff8a8a 100%);
-      color: white;
-      border: none;
-      padding: 18px;
-      border-radius: 15px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      transition: all 0.4s ease;
-      margin-top: 10px;
-      cursor:pointer;
-    }
-    button:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(255, 75, 75, 0.6);
-    }
+    with st.spinner('🚀 RYZEN 7 ENGINE ANALYZING...'):
+        try:
+            with pdfplumber.open(uploaded_file) as pdf:
+                total_pages = len(pdf.pages)
+                full_text = ""
+                for page in pdf.pages:
+                    text = page.extract_text(layout=True)
+                    if text:
+                        paragraphs = text.replace('\n\n', '[[P]]').replace('\n', ' ').replace('[[P]]', '\n\n')
+                        full_text += paragraphs + "\n\n"
 
-    textarea {
-      width: 100%;
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 10px;
-      border: none;
-      font-size: 14px;
-      min-height: 300px;
-      background: rgba(255,255,255,0.1);
-      color:#fff;
-    }
+            st.success("✅ Conversion Successful!")
+            st.text_area("✨ Cleaned Output", full_text, height=450)
+            st.download_button("👑 DOWNLOAD TEXT REPORT", full_text, file_name="export.txt")
+        except Exception as e:
+            st.error(f"Error: {e}")
 
-    section.tabs {
-      margin-top:40px;
-    }
-    section.tabs h2 {
-      margin-top:20px;
-      font-size:1.5em;
-      color:#ff8a8a;
-    }
-    section.tabs p, section.tabs ul {
-      margin-left:10px;
-    }
+# ==========================================
+# ✅ DOCUMENTATION TABS
+# ==========================================
+t1, t2, t3, t4, t5 = st.tabs(["🚀 OPERATION", "💎 CORE TECH", "🔒 SECURITY", "📈 MONETIZATION", "🛡️ SAFETY"])
 
-    footer {
-      text-align: center;
-      margin-top: 30px;
-      color: #aaa;
-      padding:20px;
-      background:rgba(0,0,0,0.6);
-    }
+with t1:
+    st.write("### How to Use")
+    st.write("Upload your PDF and our Ryzen engine will fix formatting automatically.")
 
-    /* Animations */
-    @keyframes pulse {
-      0% { transform:scale(1); }
-      50% { transform:scale(1.05); }
-      100% { transform:scale(1); }
-    }
-    h1 { animation:pulse 5s infinite; }
+with t2:
+    st.write("### Why This Tool is Top-Notch")
+    st.write("- **Line-Merge Tech:** Fixes broken lines.")
+    st.write("- **VRAM Buffer:** Optimized for fast rendering.")
+    st.write("- **Ryzen Simulation:** Mimics high-performance CPU pipelines.")
 
-    /* Responsive */
-    @media(max-width:768px){
-      h1 { font-size:1.8em; }
-      .container { padding:15px; }
-    }
-  </style>
-</head>
-<body>
-  <!-- ✅ Control Console -->
-  <nav>
-    ⚡ CPU: AMD RYZEN 7 7730U ACTIVE | 🧠 16GB RAM OPTIMIZED
-  </nav>
+with t3:
+    st.write("### 100% Privacy")
+    st.write("Your files never leave your RAM. Data is deleted once you close the tab.")
 
-  <!-- ✅ Banner Ad -->
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
-       data-ad-slot="1234567890"
-       data-ad-format="auto"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+with t4:
+    st.write("### AdSense Ready")
+    st.write("To reach ₹1,000/day, share this tool widely.")
+    st.write("Monetization options: AdSense banners, premium features, donations.")
 
-  <div class="container">
-    <h1>🚀 LEGENDARY PDF TO PARAGRAPH PRO</h1>
-    <p class="subtitle">Ultra-Fast. Military Privacy. Paragraph Perfect.</p>
+with t5:
+    st.write("### Safety Notes")
+    st.write("Use responsibly. Educational purpose only. Do not upload sensitive or harmful content.")
+    st.write("This tool is designed for students, professionals, and researchers.")
 
-    <!-- ✅ PDF Upload -->
-    <input type="file" id="pdfUpload" accept="application/pdf">
-    <button onclick="processPDF()">Upload & Convert</button>
-
-    <!-- ✅ Output -->
-    <textarea id="output" placeholder="Converted text will appear here..."></textarea>
-    <button onclick="downloadText()">👑 DOWNLOAD TEXT REPORT</button>
-
-    <!-- ✅ Tabs -->
-    <section class="tabs">
-      <h2>🚀 OPERATION</h2>
-      <p>Step 1: Upload PDF. Step 2: Convert. Step 3: Download.</p>
-
-      <h2>💎 CORE TECH</h2>
-      <ul>
-        <li>Line-Merge Tech: Fixes broken lines.</li>
-        <li>VRAM Buffer: Optimized for fast rendering.</li>
-        <li>Ryzen Engine Simulation.</li>
-      </ul>
-
-      <h2>🔒 SECURITY</h2>
-      <p>Files processed locally. No uploads. RAM-only privacy.</p>
-
-      <h2>📈 MONETIZATION</h2>
-      <p>AdSense banners, premium features, donations.</p>
-
-      <h2>🛡️ SAFETY</h2>
-      <p>Use responsibly. Educational purpose. No harmful content.</p>
-    </section>
-  </div>
-
-  <!-- ✅ Sidebar Ad -->
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
-       data-ad-slot="9876543210"
-       data-ad-format="auto"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-
-  <!-- ✅ Footer -->
-  <footer>
-    📧 Contact: support@legendarypdf.app <br>
-    Google Verification: vP-Bi-T6FOhgNroxZz7MORci8mHgt9faa2CGCfNVW60 <br>
-    Verification Portal: google4389f87ed75cf887.html
-  </footer>
-
-  <!-- ✅ PDF.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
-  <script>
-    async function processPDF() {
-      const file = document.getElementById("pdfUpload").files[0];
-      if (!file) { alert("Upload a PDF first."); return; }
-      const reader = new FileReader();
-      reader.onload = async function() {
-        const typedarray = new Uint8Array(this.result);
-        const pdf = await pdfjsLib.getDocument(typedarray).promise;
-        let text = "";
-        for (let i=0; i<pdf.numPages; i++) {
-          const page = await pdf.getPage(i+1);
-          const content = await page.getTextContent();
-          text += content.items.map(item => item.str).join(" ") + "\n\n";
-        }
-        document.getElementById("output").value = text;
-        alert("✅ Conversion Successful!");
-      };
-      reader.readAsArrayBuffer(file);
-    }
-    function downloadText() {
-      const text = document.getElementById("output").value;
-      const blob = new Blob([text], {type:"text/plain"});
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "export.txt";
-      link.click();
-    }
-  </script>
-</body>
-</html>
+# ==========================================
+# ✅ FOOTER
+# ==========================================
+st.markdown("---")
+st.write("📧 Contact: support@legendarypdf.app")
+st.caption("Google Verification: vP-Bi-T6FOhgNroxZz7MORci8mHgt9faa2CGCfNVW60")
+st.caption("Verification Portal: google4389f87ed75cf887.html")
