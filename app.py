@@ -19,3 +19,10 @@ if uploaded_file is not None:
 
     st.text_area("Converted Text", full_text, height=300)
     st.download_button("Download Text File", full_text, file_name="converted_text.txt")
+    st.markdown("---")
+st.subheader("Why use this tool?")
+st.write("Our converter preserves paragraph spacing, making it perfect for copying text into Word or Google Docs without messy line breaks.")
+
+st.subheader("Privacy & Security")
+st.info("Your privacy is our priority. We do not save, store, or share your PDF files. All processing happens instantly and safely.")
+
