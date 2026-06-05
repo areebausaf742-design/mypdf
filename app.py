@@ -1,7 +1,16 @@
 import streamlit as st
 import pdfplumber
 import io
+# GOOGLE VERIFICATION CODE - Keep this at the top
+st.set_page_config(page_title="PDF to Paragraph Converter", page_icon="🚀")
 
+# This invisible component tells Google you own the site
+st.components.v1.html(
+    """
+    <meta name="google-site-verification" content="vP-Bi-T6FOhgNroxZz7MORci8mHgt9faa2CGCfNVW60" />
+    """,
+    height=0,
+    
 st.title("🚀 Professional PDF to Paragraph Converter")
 st.write("Convert your PDFs into clean, paragraph-formatted text instantly.")
 
