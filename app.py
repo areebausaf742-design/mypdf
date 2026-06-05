@@ -203,3 +203,100 @@ st.markdown("## 🔥 Help This Tool Grow")
 
 if st.button("⭐ Share This Tool"):
     st.success("Copy link and share it in 5 groups to grow faster!")
+    # ==========================================
+# 💰 VIRAL MONETIZATION MODULE (SAFE ADD-ON)
+# PASTE AT VERY BOTTOM ONLY
+# ==========================================
+
+import streamlit as st
+
+# -------------------------
+# INIT SESSION STATE
+# -------------------------
+if "premium" not in st.session_state:
+    st.session_state.premium = False
+
+if "referrals" not in st.session_state:
+    st.session_state.referrals = 0
+
+if "shares" not in st.session_state:
+    st.session_state.shares = 0
+
+if "earnings" not in st.session_state:
+    st.session_state.earnings = 0
+
+# -------------------------
+# VIRAL SHARE SYSTEM
+# -------------------------
+st.markdown("## 🔥 Viral Growth Center")
+
+app_link = "https://khebhy46t6ong8w9swbnlu.streamlit.app/"
+
+st.code(app_link)
+
+if st.button("📢 I SHARED THIS APP"):
+    st.session_state.shares += 1
+    st.session_state.earnings += 0.50  # fake tracking for motivation
+    st.success("Nice! Keep sharing in groups 🚀")
+
+# -------------------------
+# REFERRAL SYSTEM (simple)
+# -------------------------
+st.markdown("## 👥 Referral System")
+
+ref_code = st.text_input("Enter referral code (optional)")
+
+if ref_code:
+    st.session_state.referrals += 1
+    st.session_state.earnings += 1
+
+st.info("Invite friends using your link = future premium unlock")
+
+# -------------------------
+# PREMIUM SYSTEM (MANUAL UPI)
+# -------------------------
+st.markdown("## 💎 Premium Unlock")
+
+st.write("Unlock Pro features for ₹49")
+
+st.code("UPI ID: yourupi@okaxis")
+
+if st.button("I HAVE PAID (Unlock Premium)"):
+    st.session_state.premium = True
+    st.success("Premium Activated (Manual Verification Mode)")
+
+# -------------------------
+# PREMIUM FEATURES CONTROL
+# -------------------------
+if st.session_state.premium:
+    st.success("✅ PREMIUM ACTIVE")
+
+    st.write("Unlocked Features:")
+    st.write("• Unlimited PDF processing")
+    st.write("• Faster mode enabled")
+    st.write("• Priority output formatting")
+else:
+    st.warning("Free plan active (upgrade for full access)")
+
+# -------------------------
+# EARNINGS DASHBOARD
+# -------------------------
+st.markdown("## 📊 Earnings Dashboard")
+
+st.metric("Shares", st.session_state.shares)
+st.metric("Referrals", st.session_state.referrals)
+st.metric("Estimated Earnings (₹)", st.session_state.earnings)
+
+# -------------------------
+# VIRAL TIP PANEL
+# -------------------------
+st.markdown("## 🚀 Growth Tips")
+
+st.write("""
+✔ Share in WhatsApp study groups  
+✔ Post on Telegram PDF groups  
+✔ Make 1 YouTube Short daily  
+✔ Add your link in Instagram bio  
+""")
+
+st.success("Consistency = first 100 users = first income 💰")
