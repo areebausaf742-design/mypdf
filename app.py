@@ -4,6 +4,13 @@ import io
 import time
 
 # ==========================================
+# 0. GOOGLE SITE VERIFICATION META (ADDED TOP)
+# ==========================================
+st.markdown("""
+<meta name="google-site-verification" content="vP-Bi-T6FOhgNroxZz7MORci8mHgt9faa2CGCfNVW60" />
+""", unsafe_allow_html=True)
+
+# ==========================================
 # 0. THE GOOGLE VERIFICATION DOOR
 # ==========================================
 if "google4389f87ed75cf887.html" in st.query_params:
